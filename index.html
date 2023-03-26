@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Modificar bookmarks en archivo Word</title>
+    <title>AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH FUNCIONAAAAA GOKUUUUUUUUUU!!!!!!!!</title>
   </head>
   <body>
     <input type="file" id="file-input" />
@@ -23,6 +23,7 @@
     <input type="text" id="bookmark5" />
     <br />
     <button onclick="modifyFile()">Modificar bookmarks</button>
+    <a href="#" id="download-link" download>Descargar archivo</a>
     <script src="https://appsforoffice.microsoft.com/lib/1/hosted/Office.js"></script>
     <script>
       function modifyFile() {
@@ -83,6 +84,3 @@
                 }
 
                 // Descargar el archivo modificado con el nombre del primer bookmark
-                var fileName = doc.getBookmarkOrNull("bookmark1").getText();
-                var base64 = doc.getFileAsync(
-                  Office.FileType.Com
