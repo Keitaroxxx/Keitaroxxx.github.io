@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modificar bookmarks en archivo Word</title>
+  </head>
+  <body>
+    <input type="file" id="file-input" />
+    <br />
+    <label for="bookmark1">Bookmark 1:</label>
+    <input type="text" id="bookmark1" />
+    <br />
+    <label for="bookmark2">Bookmark 2:</label>
+    <input type="text" id="bookmark2" />
+    <br />
+    <label for="bookmark3">Bookmark 3:</label>
+    <input type="text" id="bookmark3" />
+    <br />
+    <label for="bookmark4">Bookmark 4:</label>
+    <input type="text" id="bookmark4" />
+    <br />
+    <label for="bookmark5">Bookmark 5:</label>
+    <input type="text" id="bookmark5" />
+    <br />
+    <button onclick="modifyFile()">Modificar bookmarks</button>
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/Office.js"></script>
+    <script>
+      function modifyFile() {
+        // Obtener el archivo seleccionado
+        var fileInput = document.getElementById("file-input");
+        var file = fileInput.files[0];
+
+        // Crear un objeto File object y un FileReader para leer el archivo
+        var fileObject = new window.File([file], file.name, { type: file.type });
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(fileObject);
+
+        // Cuando se termine de leer el archivo, modificar los bookmarks
+        reader.onload = function (e) {
+          // Crear un objeto Word para interactuar con el archivo
+          Office.context.document.setSelectedDataAsync(
+            fileObject,
+            { coercionType: "matrix" },
+            function (asyncResult) {
+              if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
+                var doc = asyncResult.value;
+
+                // Obtener los bookmarks y modificarlos según los valores ingresados en los cuadros de texto
+                var bookmark1 = doc.getBookmarkOrNull("bookmark1");
+                if (bookmark1) {
+                  bookmark1.insertText(
+                    document.getElementById("bookmark1").value,
+                    "Replace"
+                  );
+                }
+                var bookmark2 = doc.getBookmarkOrNull("bookmark2");
+                if (bookmark2) {
+                  bookmark2.insertText(
+                    document.getElementById("bookmark2").value,
+                    "Replace"
+                  );
+                }
+                var bookmark3 = doc.getBookmarkOrNull("bookmark3");
+                if (bookmark3) {
+                  bookmark3.insertText(
+                    document.getElementById("bookmark3").value,
+                    "Replace"
+                  );
+                }
+                var bookmark4 = doc.getBookmarkOrNull("bookmark4");
+                if (bookmark4) {
+                  bookmark4.insertText(
+                    document.getElementById("bookmark4").value,
+                    "Replace"
+                  );
+                }
+                var bookmark5 = doc.getBookmarkOrNull("bookmark5");
+                if (bookmark5) {
+                  bookmark5.insertText(
+                    document.getElementById("bookmark5").value,
+                    "Replace"
+                  );
+                }
+
+                // Descargar el archivo modificado con el nombre del primer bookmark
+                var fileName = doc.getBookmarkOrNull("bookmark1").getText();
+                var base64 = doc.getFileAsync(
+                  Office.FileType.Com
